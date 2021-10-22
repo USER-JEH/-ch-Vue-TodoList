@@ -1,6 +1,11 @@
 <template>
   <ul class="todo-main">
-    <Item v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj"/>
+    <Item 
+        v-for="todoObj in todos" 
+        :key="todoObj.id" 
+        :todo="todoObj" 
+        :checkTodo="checkTodo"
+    />
   </ul>
 </template>
 
@@ -10,15 +15,7 @@ import Item from './Item'
 export default {
     name:'List',
     components:{Item},
-    data(){
-        return{
-            todos:[
-                {id:'001',title:'eat breakfast',done:true},
-                {id:'002',title:'eat lunch',done:false},
-                {id:'003',title:'eat dinner',done:true}
-            ]
-        }
-    }
+    props:['todos','checkTodo']
 }
 </script>
 

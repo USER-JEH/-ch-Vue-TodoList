@@ -1,12 +1,27 @@
 <template>
   <div class="todo-header">
-      <input type="text" placeholder="Add your todo list,push Enter key to compulite">
+      <input type="text" placeholder="Add your todo list,push Enter key to compulite" v-model="title" @keyup.enter="add"/> 
   </div>
 </template>
 
 <script>
+import {nanoid} from 'nanoid'
 export default {
-    name:'MyHeader'
+    name:'MyHeader',
+    props:['addTodo'],
+    data(){
+        return{
+            title:''
+        }
+    },
+    methods: {
+        add(){
+            if(!this.title.trim()) return alert("Not find your todo")
+            const todoObj = {id:nanoid(),title:this.title,done:false}
+            this.addTodo(todoObj)
+            this.title = ''
+        }
+    },
 }
 </script>
 
