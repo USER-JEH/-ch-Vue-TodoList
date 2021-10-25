@@ -4,19 +4,24 @@
             <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
             <span>{{ todo.title }}</span>
         </label>
-        <button class="btn btn-danger" style="display:none">Delate</button>
+        <button class="btn btn-danger" @click="handleDelete(todo.id)">Delate</button>
     </li>
 </template>
 
 <script>
 export default {
     name:'Item',
-    props:['todo','checkTodo'],
+    props:['todo','checkTodo','deleteTodo'],
     methods: {
         handleCheck(id){
             this.checkTodo(id)
+        },
+        handleDelete(id){
+            if(confirm('Are you sure to delete this todolist?')){
+                this.deleteTodo(id)
+            }
         }
-    },
+    }
 }
 </script>
 
@@ -53,5 +58,13 @@ export default {
 
  li:last-child{
      border-bottom: none;
+ }
+
+ li:hover{
+     background-color: #ddd;
+ }
+
+ li:hover button{
+     display: block;
  }
 </style>

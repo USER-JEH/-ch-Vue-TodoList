@@ -3,7 +3,7 @@
    <div class="todo-container">
      <div class="todo-wrap">
        <MyHeader :addTodo="addTodo"/>
-       <List :todos="todos" :checkTodo="checkTodo"/>
+       <List :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
        <MyFooter/>
      </div>
    </div>
@@ -35,6 +35,9 @@ export default {
       this.todos.forEach((todo)=>{
         if(todo.id === id) todo.done = !todo.done
       })
+    },
+    deleteTodo(id){
+      this.todos = this.todos.filter(todo => todo.id !==id)
     }
   },
 }
