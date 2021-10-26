@@ -4,7 +4,7 @@
      <div class="todo-wrap">
        <MyHeader :addTodo="addTodo"/>
        <List :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"/>
-       <MyFooter/>
+       <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
      </div>
    </div>
  </div>
@@ -20,11 +20,12 @@ export default {
   components:{MyHeader,List,MyFooter},
   data(){
         return{
-            todos:[
-                {id:'001',title:'eat breakfast',done:true},
-                {id:'002',title:'eat lunch',done:false},
-                {id:'003',title:'eat dinner',done:true}
-            ]
+          todos:JSON.parse(localStorage.getItem('todos')) || [] 
+            // todos:[
+            //     // {id:'001',title:'eat breakfast',done:true},
+            //     // {id:'002',title:'eat lunch',done:false},
+            //     // {id:'003',title:'eat dinner',done:true}
+            // ]
         }
     },
   methods: {
@@ -38,8 +39,26 @@ export default {
     },
     deleteTodo(id){
       this.todos = this.todos.filter(todo => todo.id !==id)
+    },
+    checkAllTodo(done){
+      this.todos.forEach((todo)=>{
+        todo.done = done
+      })
+    },
+    clearAllTodo(){
+      this.todos = this.todos.filter((todo)=>{
+        return !todo.done
+      })
     }
   },
+  watch: {
+    todos:{
+      deep:true,
+      handler(value){
+        localStorage.setItem('todos',JSON.stringify(value))
+      }
+    }
+  }
 }
 </script>
 
